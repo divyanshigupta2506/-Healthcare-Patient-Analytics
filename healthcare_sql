@@ -1,52 +1,7 @@
-CREATE DATABASE IF NOT EXISTS healthcare;
 
-USE healthcare;
-
-
-CREATE TABLE patients  (
-    patient_id VARCHAR(100),
-    Name VARCHAR(100),
-    age INT,
-    gender VARCHAR(100),
-   Blood_Type VARCHAR(100),
-    Medical_Condition VARCHAR(100),
-    Insurance_Provider VARCHAR(100)
-);
-	
-CREATE TABLE admissions (
-    admission_id INT PRIMARY KEY,
-    patient_id INT,
-    Doctor VARCHAR(100),
-    Hospital VARCHAR(150),
-    Date_of_Admission DATE,
-    Discharge_Date DATE,
-    Admission_Type VARCHAR(20),
-    Room_Number INT,
-    Billing_Amount DECIMAL(12,2),
-    Medication VARCHAR(50),
-    Test_Results VARCHAR(20)
-);
-
-LOAD DATA LOCAL INFILE "C:\\Users\\divya\\Downloads\\patients.csv"
-INTO TABLE patients 
-FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
-
-LOAD DATA LOCAL INFILE "C:\\Users\\divya\\Downloads\\admissions.csv"
-INTO TABLE admissions
-FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
 
 SELECT patient_id,Doctor,Hospital,Date_of_Admission	,Admission_Type,Discharge_Date,	Billing_Amount,	Room_Number,Medication,Test_Results
 FROM admissions;
-
-SHOW VARIABLES LIKE 'local_infile';
-SET GLOBAL local_infile = 1;
-SHOW VARIABLES LIKE 'local_infile';
 
 SELECT upper(healthcare.patients.Name) AS Name
 FROM healthcare.patients;
@@ -54,7 +9,6 @@ FROM healthcare.patients;
 UPDATE healthcare.patients
 SET healthcare.patients.Name=upper(healthcare.patients.Name);
 
-SET SQL_SAFE_UPDATES = 0;
 
 SELECT Name, Age, Gender, Blood_Type, COUNT(*) AS duplicate_count
 FROM healthcare.patients
